@@ -35,17 +35,17 @@ while True:
 
 
     # If left sensor detects line, turn right until right detects too
-    if leftleft_detect or left_detect and not rightright_detect or right_detect:
+    if (leftleft_detect or left_detect) and (not rightright_detect or right_detect):
         motor_l.run(SPEED_BASE * 0.2)
-        motor_r.run(SPEED_BASE * 3)
+        motor_r.run(SPEED_BASE * 1.7)
         while True:
             sensor_data = read_sensors()
             if sensor_data[3] < THRESHOLD:  # Right sensor sees line
                 break
 
     # If right sensor detects line, turn left until left detects too
-    elif rightright_detect or right_detect and not leftleft_detect or left_detect:
-        motor_l.run(SPEED_BASE * 3)
+    elif (rightright_detect or right_detect) and (not leftleft_detect or left_detect):
+        motor_l.run(SPEED_BASE * 1.7)
         motor_r.run(SPEED_BASE * 0.2)
         while True:
             sensor_data = read_sensors()
@@ -54,8 +54,8 @@ while True:
 
     # If both or none detect, go straight
     else:
-        motor_l.run(SPEED_BASE)
-        motor_r.run(SPEED_BASE)
+        motor_l.run(SPEED_BASE * 4)
+        motor_r.run(SPEED_BASE * 4)
 
     # print("Sensor reflections:", sensor_data)
     wait(5)
